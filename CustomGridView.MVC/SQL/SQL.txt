@@ -1,0 +1,77 @@
+﻿ALTER PROCEDURE [dbo].[DeletePlayer] @Id int
+AS
+BEGIN 
+	DELETE FROM Players
+	WHERE Players.Id = @Id
+END
+
+ALTER PROCEDURE [dbo].[FilterPlayers] @FirstName nvarchar(30) = NULL, @LastName nvarchar(30) = NULL, @Age tinyint = NULL, @StatsuId int = NULL, @OrderColum nvarchar(30)
+AS
+BEGIN
+	SET NOCOUNT ON
+    DECLARE
+        @fFirstName         NVARCHAR(50), 
+        @fLastName          NVARCHAR(50), 
+        @fAge               tinyint, 
+        @fStatusId          INT
+
+    SET @fFirstName         = LTRIM(RTRIM(@FirstName))
+    SET @fLastName          = LTRIM(RTRIM(@LastName))
+    SET @fAge               = @Age
+	SET @fStatusId			= @StatsuId
+
+	IF @OrderColum = 'firstname'
+	BEGIN
+		SELECT * FROM Players
+		WHERE (@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
+		AND (@LastName IS NULL OR LastName LIKE '%' + @LastName + '%')
+		AND (@Age IS NULL OR Age = @Age)
+		AND (@StatsuId IS NULL OR StatusId = @StatsuId)
+		ORDER BY FirstName DESC
+	END
+	ELSE IF @OrderColum = 'lastname'
+	BEGIN
+		SELECT * FROM Players
+		WHERE (@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
+		AND (@LastName IS NULL OR LastName LIKE '%' + @LastName + '%')
+		AND (@Age IS NULL OR Age = @Age)
+		AND (@StatsuId IS NULL OR StatusId = @StatsuId)
+		ORDER BY LastName DESC
+	END
+	ELSE IF @OrderColum = 'age'
+		SELECT * FROM Players
+		WHERE (@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
+		AND (@LastName IS NULL OR LastName LIKE '%' + @LastName + '%')
+		AND (@Age IS NULL OR Age = @Age)
+		AND (@StatsuId IS NULL OR StatusId = @StatsuId)
+		ORDER BY Age DESC
+	ELSE
+	BEGIN
+		SELECT * FROM Players
+		WHERE (@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
+		AND (@LastName IS NULL OR LastName LIKE '%' + @LastName + '%')
+		AND (@Age IS NULL OR Age = @Age)
+		AND (@StatsuId IS NULL OR StatusId = @StatsuId)
+		ORDER BY Id DESC
+	END
+END
+
+ALTER PROCEDURE [dbo].[InsertPlayer] @FristName nvarchar(30), @LastName nvarchar(30), @Age tinyint, @StatusId int, @Img nvarchar(100)
+AS
+BEGIN 
+	INSERT INTO dbo.Players(FirstName, LastName, Age, StatusId, Img)
+	VALUES(@FristName, @LastName, @Age, @StatusId, @Img)
+END
+
+ALTER PROCEDURE [dbo].[UpdatePlayer] @Id int, @FristName nvarchar(30), @LastName nvarchar(30), @Age tinyint, @StatusId int, @Img nvarchar(100)
+AS
+BEGIN 
+	UPDATE Players
+	SET
+	FirstName = @FristName,
+	LastName = @LastName,
+	Age = @Age,
+	StatusId = @StatusId,
+	Img = @Img
+	WHERE Players.Id = @Id
+END

@@ -1,0 +1,111 @@
+﻿@using CustomGridView.Entities
+@using CustomGridView.Entities.Enums
+@using CustomGridView.MVC.Helpers
+@model PaginatedPlayerList
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <table class="table custom-table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>
+                    First Name                     
+                    <i class="bi bi-caret-down-fill first-name-desc"></i>
+                </th>
+                <th>
+                    Last Name
+                    <i class="bi bi-caret-down-fill last-name-desc"></i>
+                </th>
+                <th>
+                    Age
+                    <i class="bi bi-caret-down-fill age-desc"></i>
+                </th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>
+                    <input type="text" placeholder="First Name" class="filter-firstname" />
+                </th>
+                <th>
+                    <input type="text" placeholder="Last Name" class="filter-lastname" />
+                </th>
+                <th>
+                    <input type="text" placeholder="Age" class="filter-age" />
+                </th>
+                <th>
+                    <select class="select-status filter-status">
+                        <option value="">Select</option>
+                        <option value="1">New</option>
+                        <option value="2">Active</option>
+                        <option value="3">Inactive</option>
+                    </select>
+                </th>
+                <th>
+                    <button class="btn btn-primary btn-filter">Filter</button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in Model.Players)
+            {
+                <tr>
+                    <td>
+                        <div class="image-@player.Id">
+                            <img src="@player.Img" class="user-img" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="first-name-@player.Id">
+                            @player.FirstName
+                        </div>
+                    </td>
+                    <td>
+                        <div class="last-name-@player.Id">
+                            @player.LastName
+                        </div>
+                    </td>
+                    <td>
+                        <div class="age-@player.Id">
+                            @player.Age
+                        </div>
+                    </td>
+                    <td>
+                        <div class="status-@player.Id">
+                            @StatusHelper.GetStatus((Statuses)player.StatusId)
+                        </div>
+                    </td>
+                    <td>
+                        <i class="bi bi-pencil-square edit-icon" data-playerId="@player.Id"></i>
+                        <i class="bi bi-trash delete-icon" data-playerId="@player.Id"></i>
+                    </td>
+                </tr> 
+            }    
+        </tbody>
+    </table>
+    <div>
+        <i class="bi bi-chevron-double-left pagination-arrow-left"></i>
+        Page <input type="text" value="@ViewBag.PageIndex" class="pagination-input" /> of <span class="pages-count">@ViewBag.PagesCount</span> 
+        <i class="bi bi-chevron-double-right pagination-arrow-right"></i>
+        <select class="pagination-page-size" data-pagination-page-size="@ViewBag.PageSize" >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <button class="btn btn-primary btn-save" style="display: none;">Save</button>
+        <button class="btn btn-primary btn-edit" style="display: none;" data-player-id="">Edit</button>
+        <button class="btn btn-primary btn-add">Add</button>
+        <button class="btn btn-primary btn-cancel">Cancel</button>
+    </div>
+</div>
