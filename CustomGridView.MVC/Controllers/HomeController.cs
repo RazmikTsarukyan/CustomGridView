@@ -50,6 +50,12 @@ namespace CustomGridView.MVC.Controllers
                 OrderColumn = orderColumn
             });
 
+            paginatedPlayerList.OrderColumn = orderColumn;
+            paginatedPlayerList.FirstName = firstname;
+            paginatedPlayerList.LastName = lastname;
+            paginatedPlayerList.Age = age;
+            paginatedPlayerList.StatusId = statusId;
+
             ViewBag.PagesCount = paginatedPlayerList.Total;
             ViewBag.PageIndex = pageIndex;
             ViewBag.PageSize = pageSize;

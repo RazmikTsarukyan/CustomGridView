@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace CustomGridView.DAL.Repository.PlayerRepository
 {
@@ -17,17 +18,17 @@ namespace CustomGridView.DAL.Repository.PlayerRepository
 
         public async Task AddByStoredProcedureAsync(Player player)
         {
-            var result = await DataContext.Players.FromSqlRaw("EXECUTE dbo.InsertPlayer {0}, {1}, {2}, {3}, {4}", player.FirstName, player.LastName, player.Age, player.StatusId, player.Img).ToListAsync();
+            await DataContext.Players.FromSqlRaw("EXECUTE dbo.InsertPlayer {0}, {1}, {2}, {3}, {4}", player.FirstName, player.LastName, player.Age, player.StatusId, player.Img).ToListAsync();
         }
 
         public async Task UpdateByStoredProcedureAsync(Player player)
         {
-            var result = await DataContext.Players.FromSqlRaw("EXECUTE dbo.UpdatePlayer {0}, {1}, {2}, {3}, {4}, {5}", player.Id, player.FirstName, player.LastName, player.Age, player.StatusId, player.Img).ToListAsync();
+            await DataContext.Players.FromSqlRaw("EXECUTE dbo.UpdatePlayer {0}, {1}, {2}, {3}, {4}, {5}", player.Id, player.FirstName, player.LastName, player.Age, player.StatusId, player.Img).ToListAsync();
         }
 
         public async Task DeleteByStoredProcedureAsync(int playerId)
         {
-            var result = await DataContext.Players.FromSqlRaw("EXECUTE dbo.DeletePlayer {0}", playerId).ToListAsync();
+            await DataContext.Players.FromSqlRaw("EXECUTE dbo.DeletePlayer {0}", playerId).ToListAsync();
         }
 
         public async Task<List<vwGetPlayer>> GetPlayersAsync()

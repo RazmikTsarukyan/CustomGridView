@@ -13,15 +13,15 @@
                 <th>Image</th>
                 <th>
                     First Name                     
-                    <i class="bi bi-caret-down-fill first-name-desc"></i>
+                    <i class="bi bi-caret-down-fill first-name-desc @(Model.OrderColumn == "firstname" ? "active" : string.Empty)"></i>
                 </th>
                 <th>
                     Last Name
-                    <i class="bi bi-caret-down-fill last-name-desc"></i>
+                    <i class="bi bi-caret-down-fill last-name-desc @(Model.OrderColumn == "lastname" ? "active" : string.Empty)"></i>
                 </th>
                 <th>
                     Age
-                    <i class="bi bi-caret-down-fill age-desc"></i>
+                    <i class="bi bi-caret-down-fill age-desc @(Model.OrderColumn == "age" ? "active" : string.Empty)"></i>
                 </th>
                 <th>Status</th>
                 <th>Action</th>
@@ -29,16 +29,16 @@
             <tr>
                 <th></th>
                 <th>
-                    <input type="text" placeholder="First Name" class="filter-firstname" />
+                    <input type="text" placeholder="First Name" class="filter-firstname" value="@(string.IsNullOrEmpty(Model.FirstName) ? string.Empty : Model.FirstName)" />
                 </th>
                 <th>
-                    <input type="text" placeholder="Last Name" class="filter-lastname" />
+                    <input type="text" placeholder="Last Name" class="filter-lastname"  value="@(string.IsNullOrEmpty(Model.LastName) ? string.Empty : Model.LastName)" />
                 </th>
                 <th>
-                    <input type="text" placeholder="Age" class="filter-age" />
+                    <input type="text" placeholder="Age" class="filter-age" value="@(Model.Age.HasValue ? Model.Age : string.Empty)" />
                 </th>
                 <th>
-                    <select class="select-status filter-status">
+                    <select class="select-status filter-status" data-filter-value="@(Model.StatusId.HasValue ? Model.StatusId.Value : string.Empty)">
                         <option value="">Select</option>
                         <option value="1">New</option>
                         <option value="2">Active</option>

@@ -216,7 +216,14 @@ $(".pagination-arrow-left").on("click", function () {
 
     let pageSize = $(".pagination-page-size").val();
 
-    window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize;
+    let firstname = $(".filter-firstname").val();
+    let lastname = $(".filter-lastname").val();
+    let age = $(".filter-age").val();
+    let statusId = $(".filter-status").val();
+    let orderCulumn = getOrderCulumn();
+
+    window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize + "&firstname=" + firstname + "&lastname=" + lastname + "&age=" + age + "&statusId=" + statusId + "&orderColumn=" + orderCulumn;
+
 })
 
 $(".pagination-arrow-right").on("click", function () {
@@ -237,19 +244,33 @@ $(".pagination-arrow-right").on("click", function () {
 
     let pageSize = $(".pagination-page-size").val();
 
-    window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize;
+    let firstname = $(".filter-firstname").val();
+    let lastname = $(".filter-lastname").val();
+    let age = $(".filter-age").val();
+    let statusId = $(".filter-status").val();
+    let orderCulumn = getOrderCulumn();
+
+    window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize + "&firstname=" + firstname + "&lastname=" + lastname + "&age=" + age + "&statusId=" + statusId + "&orderColumn=" + orderCulumn;
 })
 
 $(document).ready(function () {
     let pageSize = $(".pagination-page-size").attr("data-pagination-page-size");
     $(".pagination-page-size").val(pageSize);
+
+    $(".filter-status").val($(".filter-status").attr("data-filter-value"));
 });
 
 $(".pagination-page-size").on("change", function() {
     let pageSize = $(this).val();
     let pageIndex = $(".pagination-input").val();
 
-    window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize;
+    let firstname = $(".filter-firstname").val();
+    let lastname = $(".filter-lastname").val();
+    let age = $(".filter-age").val();
+    let statusId = $(".filter-status").val();
+    let orderCulumn = getOrderCulumn();
+
+    window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize + "&firstname=" + firstname + "&lastname=" + lastname + "&age=" + age + "&statusId=" + statusId + "&orderColumn=" + orderCulumn;
 })
 
 $('.pagination-input').on('keypress', function (e) {
@@ -257,7 +278,13 @@ $('.pagination-input').on('keypress', function (e) {
         let pageSize = $(".pagination-page-size").val();
         let pageIndex = $(".pagination-input").val();
 
-        window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize;
+        let firstname = $(".filter-firstname").val();
+        let lastname = $(".filter-lastname").val();
+        let age = $(".filter-age").val();
+        let statusId = $(".filter-status").val();
+        let orderCulumn = getOrderCulumn();
+
+        window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize + "&firstname=" + firstname + "&lastname=" + lastname + "&age=" + age + "&statusId=" + statusId + "&orderColumn=" + orderCulumn;
     }
 });
 
@@ -269,8 +296,9 @@ $('.btn-filter').on('click', function () {
 
     let pageSize = $(".pagination-page-size").val();
     let pageIndex = $(".pagination-input").val();
+    let orderCulumn = getOrderCulumn();
 
-    window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize + "&firstname=" + firstname + "&lastname=" + lastname + "&age=" + age + "&statusId=" + statusId;
+    window.location.href = '/Home/GetPlayers?pageIndex=' + pageIndex + "&pageSize=" + pageSize + "&firstname=" + firstname + "&lastname=" + lastname + "&age=" + age + "&statusId=" + statusId + "&orderColumn=" + orderCulumn;
 })
 
 $(".first-name-desc").on("click", function () {
@@ -333,4 +361,20 @@ function getStatusId(status)
         default:
             return 1;
     }
+}
+ 
+function getOrderCulumn() {
+    if ($(".first-name-desc").hasClass("active")) {
+        return "firstname";
+    }
+
+    if ($(".last-name-desc").hasClass("active")) {
+        return "lastname";
+    }
+
+    if ($(".age-desc").hasClass("active")) {
+        return "age";
+    }
+
+    return "";
 }
